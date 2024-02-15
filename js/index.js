@@ -1,14 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    const counter = document.getElementById("counter-display");
-    const incrementBtn = document.getElementById("increment-btn");
-    const decrementBtn = document.getElementById("decrement-btn");
-    const resetBtn = document.getElementById("reset-btn");
+    const counterContainer = document.getElementById("counter-container");
+    const buttonContainer = document.getElementById("button-container");
 
     let counterValue = 0;
+    const counterDisplay = document.createElement('h2');
+    counterDisplay.id = 'counter-display';
+    counterDisplay.textContent = counterValue;
+    counterContainer.appendChild(counterDisplay);
+
+    function createButton(text, className, onClick) {
+        const button = document.createElement('button');
+        button.textContent = text;
+        button.className = className;
+        button.addEventListener('click', onClick);
+        return button;
+    }
 
     function updateCounterDisplay() {
-        counter.textContent = counterValue;
+        counterDisplay.textContent = counterValue;
     }
 
     function incrementCounter(){
@@ -26,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCounterDisplay();
     }
 
-    incrementBtn.addEventListener("click",incrementCounter);
-    decrementBtn.addEventListener("click",decrementCounter);
-    resetBtn.addEventListener("click",resetCounter);
+    buttonContainer.appendChild(createButton('-', 'btn btn-primary mr-2', decrementCounter));
+    buttonContainer.appendChild(createButton('Reset', 'btn btn-primary mx-2', resetCounter));
+    buttonContainer.appendChild(createButton('+', 'btn btn-primary ml-2', incrementCounter));
 
 });
